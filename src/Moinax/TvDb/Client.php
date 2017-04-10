@@ -141,7 +141,6 @@ class Client
      *
      * @param string $seriesName
      * @param string $language
-     * @internal param string $seriesName the show name to search for
      * @return array
      */
     public function getSeries($seriesName, $language = null)
@@ -207,6 +206,21 @@ class Client
             $banners[] = new Banner($banner);
         }
 
+        return $banners;
+    }
+
+    /**
+     * Find banners that match a filter string
+     * Eg: poster or season 
+    */
+    public function getBannersFiltered($serieId,$filter) {
+        $data = $this->getBanners($serieId);
+        $banners = array();
+        foreach($data as $image) {
+            if($image->type == $filter) {
+                $banners[] = $image;
+            }
+        }
         return $banners;
     }
 
